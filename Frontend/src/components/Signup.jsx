@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 const Signuppage = () => {
+    const API_BASE = process.env.REACT_APP_API_BASE;
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -22,7 +23,7 @@ const Signuppage = () => {
         try {
             const user = { name, email, password };
 
-            await axios.post("http://localhost:3000/api/signup", user); //save the user data
+            await axios.post(`${API_BASE}/api/tasklist`, user); //save the user data
 
             toast.success('Signup Sucess')
 

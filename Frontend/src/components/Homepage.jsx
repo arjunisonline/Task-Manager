@@ -6,6 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
+    const API_BASE = process.env.REACT_APP_API_BASE;
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [tasks, setTasks] = useState([]);
@@ -18,7 +19,7 @@ const Homepage = () => {
             return;
         }
         axios
-            .get("http://localhost:3000/api/tasklist", { //to fetch the tasks
+            .get(`${API_BASE}/api/tasklist`, { //to fetch the tasks
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then((res) => setTasks(res.data))
@@ -34,7 +35,7 @@ const Homepage = () => {
 
         axios
             .post(
-                "http://localhost:3000/api/addtask", //for adding tasks
+               `${API_BASE}/api/tasklist`, //for adding tasks
                 { title, description, status: "pending" },
                 { headers: { Authorization: `Bearer ${token}` } }
             )
@@ -51,7 +52,7 @@ const Homepage = () => {
         const token = localStorage.getItem("token");
         axios
             .put(
-                `http://localhost:3000/api/tasks/${id}`, //change the status
+               `${API_BASE}/api/tasklist`, //change the status
                 { status: newStatus },
                 { headers: { Authorization: `Bearer ${token}` } }
             )

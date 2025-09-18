@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 const Loginpage = () => {
+    const API_BASE = process.env.REACT_APP_API_BASE;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -15,7 +16,7 @@ const Loginpage = () => {
         try {
             const user = { email, password };
 
-            const res = await axios.post("http://localhost:3000/api/login", user); //check the email and pass
+            const res = await axios.post(`${API_BASE}/api/tasklist`, user); //check the email and pass
 
             localStorage.setItem("token", res.data.token);
 

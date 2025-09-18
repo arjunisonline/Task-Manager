@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Reusables/Navbar";
 
 const Dashboard = () => {
+    const API_BASE = process.env.REACT_APP_API_BASE;
     const [tasks, setTasks] = useState([]);
     const navigate = useNavigate();
 
@@ -17,7 +18,7 @@ const Dashboard = () => {
         }
 
         axios
-            .get("http://localhost:3000/api/tasklist", {
+            .get(`${API_BASE}/api/tasklist`, {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then((res) => setTasks(res.data))
