@@ -22,7 +22,7 @@ const Signuppage = () => {
         try {
             const user = { name, email, password };
 
-            await axios.post("http://localhost:3000/api/signup", user);
+            await axios.post("http://localhost:3000/api/signup", user); //save the user data
 
             toast.success('Signup Sucess')
 
@@ -40,7 +40,7 @@ const Signuppage = () => {
     };
 
     return (
-        <div className="position-relative vh-100">
+         <div className="position-relative vh-100" style={{background: "linear-gradient(135deg, #9face6 0%, #b3b3b3 100%)",}}>
             <div className="container d-flex justify-content-center align-items-center h-100">
               <ToastContainer/>
                 <form 

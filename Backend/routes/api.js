@@ -5,6 +5,8 @@ var router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+
+//authotisation
 const VerifyToken = (req, res, next) => {
     const token = req.headers["authorization"]?.split(" ")[1];
     if (!token) {
@@ -20,7 +22,7 @@ const VerifyToken = (req, res, next) => {
     }
 };
 
-
+//signup
 router.post('/signup', async (req, res) => {
     const { name, email, password } = req.body;
 
@@ -48,7 +50,7 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-// Login
+// Login authentication
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
@@ -76,7 +78,7 @@ router.post('/login', async (req, res) => {
         res.status(500).send('Could not login');
     }
 });
-
+//API for get task from db
 router.get("/tasklist", VerifyToken, async (req, res) => {
     try {
         const tasks = await Task.find({ user: req.user }).sort({ createdAt: -1 });
@@ -86,20 +88,22 @@ router.get("/tasklist", VerifyToken, async (req, res) => {
         res.status(500).json({ error: "Could not fetch tasks" });
     }
 });
-
+//API for adding task
 router.post("/addtask", VerifyToken, async (req, res) => {
-    const { task } = req.body;
+    const { title, description, status } = req.body;
 
-    if (!task || task.trim() === "") {
-        return res.status(400).json({ message: "Task cannot be empty" });
+    if (!title || title.trim() === "") {
+        return res.status(400).json({ message: "Title cannot be empty" });
     }
 
     try {
         const newTask = new Task({
             user: req.user,
-            task,
-            status: "pending"
+            title,
+            description: description || "", 
+            status: status || "pending",    
         });
+
         await newTask.save();
         res.status(201).json(newTask);
     } catch (err) {
@@ -108,7 +112,8 @@ router.post("/addtask", VerifyToken, async (req, res) => {
     }
 });
 
-router.put("/tasks/:id", VerifyToken, async (req, res) => {
+//to update the status
+router.put("/task/:id", VerifyToken, async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 

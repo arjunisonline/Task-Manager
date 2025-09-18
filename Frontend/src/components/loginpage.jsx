@@ -15,7 +15,7 @@ const Loginpage = () => {
         try {
             const user = { email, password };
 
-            const res = await axios.post("http://localhost:3000/api/login", user);
+            const res = await axios.post("http://localhost:3000/api/login", user); //check the email and pass
 
             localStorage.setItem("token", res.data.token);
 
@@ -32,8 +32,8 @@ const Loginpage = () => {
     };
 
     return (
-        <div className="position-relative vh-100">
-            <div className="container d-flex justify-content-center align-items-center h-100">
+        <div className="position-relative vh-100" style={{background: "linear-gradient(135deg, #9face6 0%, #b3b3b3 100%)",}}>
+            <div className="container d-flex justify-content-center align-items-center h-100" >
                 <ToastContainer/>
                 <form 
                     className="col-12 col-sm-10 col-md-8 col-lg-7 col-xl-6 p-4 rounded shadow bg-white bg-opacity-75" 
